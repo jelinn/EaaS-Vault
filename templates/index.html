@@ -1,0 +1,25 @@
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+ <form method="POST" action="/">
+      <h1>View Customer Information</h1>
+      <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Id Number</th>
+          <th>Encrypt With Vault?</th>
+        </tr>
+      </thead>
+      {% for row in rows %}
+        <tr>
+          <td>{{row["name"]}}</td>
+          <td>{{row["idNumber"]}}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+    </form>
+{% endblock %}

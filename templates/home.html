@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <form method="POST" action="/">
+      <h1>Input your Secret ID number</h1>
+      <input type="text" name="idNumber">
+      <input type="text" name="name">
+      <input type="checkbox" name="encryptWithVault">
+      <input type="submit" value="Add">
+    </form>
+
+  <h1>Customers<h1>
+    {% for item in entries %}
+      <p>{{item}}</p>
+    {% endfor %}
+
+
+
+  </body>
+</html>

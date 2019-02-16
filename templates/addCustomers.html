@@ -1,0 +1,38 @@
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+ <form method="POST" action="/add">
+      
+
+<h1>Input Customer Information</h1>
+      <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Id Number</th>
+          <th>Encrypt With Vault?</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td>
+      <input type="text" name="idNumber">
+      </td>
+      <td>
+      <input type="text" name="name">
+      </td>
+      <td>
+      <input type="checkbox" name="encryptWithVault">
+      </td>
+      <td>
+      <input type="submit" value="Add">
+      </td>
+      </tr>
+      </tbody>
+      </table>
+    </form>
+
+
+{% endblock %}

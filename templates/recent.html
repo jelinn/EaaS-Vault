@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<table border =1>
+  <thead>
+    <td>Name</td>
+    <td>ID</td>
+  </thead>
+  {% for row in rows %}
+    <tr>
+    <td>{{row["name"]}}</td>
+    <td>{{row["idNumber"]}}</td>
+  {% endfor %}
+</table
+{% endblock %}
