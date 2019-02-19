@@ -1,5 +1,7 @@
 import request
 import os
+import hvac
+import base64
 from flask import Flask, g, request, render_template, redirect, jsonify
 from sqlite3 import dbapi2 as sqlite3
 
@@ -34,8 +36,13 @@ def addCustomer():
     print(request.form.get("encryptWithVault"))
     if request.form.get("encryptWithVault") == 'on':
       print("Encryption enabled - Calling Vault")
-      #TODO - finish this 
       #Make call to vault to encrypt
+      client = hvac.Client(url=os.environ['VAULT_ADDR'], token=os.environ['VAULT_TOKEN'])
+      assert client.is_authenticated()
+      encryptedCustomerNumber = client.write('transit/encrypt/my-key', plaintext=base64.b64encode(customerNumber))
+      print("encrypted number = ", encryptedCustomerNumber)
+      customerNumber = encryptedCustomerNumber['data']['ciphertext']
+      print customerNumber 
     with sqlite3.connect('DATABASE') as con:
       cur = con.cursor()
       cur.execute("INSERT INTO customers (name, idNumber) VALUES (?,?)", (providedName, customerNumber))
