@@ -2,9 +2,8 @@ import boto3
 
 dynamo_client = boto3.client('dynamodb')
 
+
 def create_item(name,id):
-  print name
-  print id
   response = dynamo_client.put_item(
     TableName='jlinn-demo-CustomerData',
     Item={'customerName':{"S": name}, 'customerId':{"S":id} }
