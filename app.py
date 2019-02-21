@@ -3,7 +3,7 @@ import hvac
 import base64
 from flask import Flask, g, request, render_template, redirect, jsonify
 import boto3
-import dynamo_controller
+import controller
 
 app = Flask(__name__)
 
@@ -16,8 +16,13 @@ def index():
 
 @app.route('/view', methods=["GET","POST"])
 def viewCustomers():
-  rows = dynamo_controller.read_items()
+  rows = controller.dynamoReadItems()
   return render_template("viewCustomers.html", rows=rows)  
+
+@app.route('/getCreds', methods=["GET"])
+def getCredentials():
+  client = controller.authDynamo()
+    
 
 @app.route('/add', methods=["GET","POST"])
 def addCustomer():
@@ -27,15 +32,14 @@ def addCustomer():
     if request.form.get("encryptWithVault") == 'on':
       print("Encryption enabled - Calling Vault")
       #Make call to vault to encrypt
-      client = hvac.Client(url=os.environ['VAULT_ADDR'], token=os.environ['VAULT_TOKEN'])
-      assert client.is_authenticated()
-      encryptedCustomerNumber = client.write('transit/encrypt/my-key', plaintext=base64.b64encode(customerNumber))
+      encryptedCustomerNumber = controller.encryptVault(customerNumber)
       print("encrypted number = ", encryptedCustomerNumber)
       customerNumber = encryptedCustomerNumber['data']['ciphertext']
       print customerNumber 
-    dynamo_controller.create_item(providedName,customerNumber)   
+    controller.dynamoCreateItem(providedName,customerNumber)   
     print("Record Added")  
   return render_template('addCustomers.html')
+
 
 
 if __name__ == '__main__':
