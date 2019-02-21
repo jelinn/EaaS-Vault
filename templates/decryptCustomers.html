@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+
+{% block title %}View Customers{% endblock %}
+
+{% block body %}
+<center>
+ <form method="POST" action="/viewDecryptId">
+      <h1>View Customer Information</h1>
+      <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Id Number</th>
+          <th>Decrypt with Vault</th>
+        </tr>
+      </thead>
+      {% for row in rows["Items"] %}
+        <tr>
+          <td>{{row["customerName"]['S']}}</td>
+          <td>{{row["customerId"]['S']}}</td>
+          <td><center><input type="checkbox" name="decrypt" value={{row["customerId"]['S']}} onclick="popUp()"></center></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+      <input type="submit" value="decrypt">
+    </form>
+<hr>
+<h3><a href='/'>Home</a></h3>
+<h3><a href='/add'>Add Customer Data</a></h3>
+</center>
+{% endblock %}
