@@ -3,23 +3,10 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
- <form method="POST" action="/">
-      <h1>View Customer Information</h1>
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Id Number</th>
-          <th>Encrypt With Vault?</th>
-        </tr>
-      </thead>
-      {% for row in rows %}
-        <tr>
-          <td>{{row["name"]}}</td>
-          <td>{{row["idNumber"]}}</td>
-      </tr>
-      {% endfor %}
-      </tbody>
-      </table>
-    </form>
+<h1><center>Sensitive Data - Customer Mart</center></h1>
+<h3><center>Enter all customer data and remember that ID numbers are extremely sensitive</center></h3>
+<h3><a href='/add'>Add Some Data</a></h3>
+<h3><a href='/view'>View Some data</a></h3>
+<h3><a href='/decryptId'>Decrypt data</a></h3>
+
 {% endblock %}
