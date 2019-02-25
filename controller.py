@@ -51,7 +51,7 @@ def dynamoCreateItem(name,id):
   #dynamo_client = authDynamo()
   response = dynamo_client.put_item(
     TableName='jlinn-demo-CustomerData',
-    Item={'customerName':{"S": name}, 'customerId':{"S":id} }
+    Item={'UserId':{"S": name}, 'customerId':{"S":id} }
   )
 
 def dynamoReadItems():
